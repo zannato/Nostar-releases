@@ -4,14 +4,14 @@
         <title>Nostar</title>
         <item>
             <title>1.0.1</title>
-            <pubDate>Sun, 10 May 2026 18:28:41 +0000</pubDate>
+            <pubDate>Sun, 10 May 2026 19:14:38 +0000</pubDate>
             <sparkle:fullReleaseNotesLink>https://raw.githubusercontent.com/zannato/Nostar-releases/main/notes/Nostar-1.0.1.html</sparkle:fullReleaseNotesLink>
             <sparkle:version>2</sparkle:version>
             <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.6</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
             <sparkle:releaseNotesLink>https://raw.githubusercontent.com/zannato/Nostar-releases/main/Nostar-1.0.1.html</sparkle:releaseNotesLink>
-            <enclosure url="https://github.com/zannato/Nostar-releases/releases/download/v1.0.1/Nostar-1.0.1.zip" length="124803268" type="application/octet-stream" sparkle:edSignature="Lj6c6zLTDzJANAxfu2MPMdzAJeuxSYsqSfVNupzbatsmj6yzxhyD7VjiX9/9/pe+CUMEdnSlkYiwIj4hah+PBA=="/>
+            <enclosure url="https://github.com/zannato/Nostar-releases/releases/download/v1.0.1/Nostar-1.0.1.zip" length="124918002" type="application/octet-stream" sparkle:edSignature="2Hvuee3LBCVGEqmsEPapBP0rym/FgVtfto34M9v5jZbdKU2OS+tbbkH3rG/jB0/41mQW4Ixiy5BnxJbw2kleDw=="/>
         </item>
     </channel>
 </rss>
