@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Nostar 1.0.1 — Note di rilascio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #1d1d1f;
+            margin: 24px;
+            max-width: 720px;
+        }
+        h1 { font-size: 20px; margin-bottom: 8px; }
+        h2 { font-size: 15px; margin-top: 24px; }
+        ul { margin: 0 0 16px 20px; padding: 0; }
+        li { margin-bottom: 6px; }
+        code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; background: #f4f4f5; padding: 1px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Nostar 1.0.1</h1>
+    <p>Prima release pubblica notarizzata distribuita via Sparkle.</p>
+
+    <h2>Novità</h2>
+    <ul>
+        <li>Pipeline di aggiornamento automatico abilitata: gli update arrivano in app tramite il menu <em>Verifica aggiornamenti…</em>.</li>
+        <li>Distribuzione notarizzata con Apple Developer ID, hardened runtime e staple.</li>
+        <li>Sandbox compatibile con Sparkle Installer XPC Service.</li>
+    </ul>
+
+    <h2>Refactor interni</h2>
+    <ul>
+        <li>Tabella prodotti centralizzata: snapshot immutabili, indici O(1), diff binario, hover stateless. Vedi <code>RECENT_CHANGES.md</code>.</li>
+    </ul>
+
+    <h2>Note tecniche</h2>
+    <p>Per attivare manualmente il check di aggiornamento via terminale, durante il test:</p>
+    <p><code>defaults delete zannato.Nostar SULastCheckTime</code></p>
+</body>
+</html>
