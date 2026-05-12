@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Nostar 1.0.3 — Note di rilascio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #1d1d1f;
+            margin: 24px;
+            max-width: 720px;
+        }
+        h1 { font-size: 20px; margin-bottom: 8px; }
+        h2 { font-size: 15px; margin-top: 24px; }
+        ul { margin: 0 0 16px 20px; padding: 0; }
+        li { margin-bottom: 6px; }
+        code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; background: #f4f4f5; padding: 1px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Nostar 1.0.3</h1>
+    <p>Release focalizzata su sync multi-set cloud e categorizzazione automatica SigLIP. Diversi fix critici alla pipeline Vision AI emersi durante test su progetti reali.</p>
+
+    <h2>Categorizzazione automatica SigLIP</h2>
+    <ul>
+        <li>I prodotti con un solo file senza suffisso vista (es. <code>SKU.jpg</code>) ora vengono categorizzati automaticamente. Prima venivano silenziosamente skippati dal pipeline AI.</li>
+        <li>Lo slider "Soglia confidence" nelle impostazioni Vision AI è ora sempre interattivo e controlla effettivamente quali suggerimenti SigLIP vengono promossi a categoria.</li>
+        <li>Soglia di default abbassata da 0.70 a 0.10, coerente con il range reale di SigLIP2 (0.05-0.40), non con la scala softmax legacy.</li>
+        <li>L2-normalize defensive dell'embedding immagine: confidence ora nel range atteso, non più anomalamente basse.</li>
+        <li>Il rinomina file dopo lo scan iniziale (per match SKU Excel) triggera ora la categorizzazione AI in automatico.</li>
+        <li>Engine SigLIP CoreML attivo di default per i nuovi progetti.</li>
+    </ul>
+
+    <h2>Sync cloud multi-set</h2>
+    <ul>
+        <li>Quando più Mac sono linkati allo stesso progetto cloud, le modifiche operative si propagano entro 60 secondi. Il watcher fa polling della firma del progetto e re-importa solo se cambiata.</li>
+        <li>Nuovo endpoint Worker <code>GET /api/projects/:id/version</code> con auth Bearer per check signature efficienti.</li>
+        <li>Re-upload Excel dalla dashboard web ora viene importato come source-of-truth dagli altri set linkati.</li>
+        <li>Layer di retry + chunking + progress + diagnostics sulle chiamate cloud, con backoff esponenziale e logging strutturato.</li>
+        <li>La dashboard cloud mostra ora solo prodotti con preview caricate, non l'intero catalogo Excel.</li>
+    </ul>
+
+    <h2>UI &amp; UX</h2>
+    <ul>
+        <li>Tab "Errori" mostra correttamente la <code>ErrorTableView</code> quando ci sono errori ma nessun prodotto in tabella (era dead code).</li>
+        <li>Overlay di creazione progetto con fasi visibili durante il wizard cloud-enabled.</li>
+        <li>Pulizia recents orfani dopo l'eliminazione di un progetto.</li>
+        <li>Widget di progress QC ora si pulisce correttamente al deactivate del progetto.</li>
+        <li>Selettore catalogo mostra progetti B2B dal DB con recents standalone separati.</li>
+    </ul>
+
+    <h2>Stabilità</h2>
+    <ul>
+        <li>Re-import: persistenza del mapping precedente + warning banner su state leak.</li>
+        <li>Localizzazione: stringhe scoperte da Xcode aggiornate.</li>
+    </ul>
+
+    <h2>Note tecniche</h2>
+    <p>Per forzare il check di aggiornamento via terminale:</p>
+    <p><code>defaults delete zannato.Nostar SULastCheckTime</code></p>
+</body>
+</html>
