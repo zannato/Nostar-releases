@@ -3,15 +3,15 @@
     <channel>
         <title>Nostar</title>
         <item>
-            <title>1.0.5</title>
-            <pubDate>Tue, 12 May 2026 19:08:24 +0000</pubDate>
-            <sparkle:fullReleaseNotesLink>https://raw.githubusercontent.com/zannato/Nostar-releases/main/notes/Nostar-1.0.5.html</sparkle:fullReleaseNotesLink>
-            <sparkle:version>6</sparkle:version>
-            <sparkle:shortVersionString>1.0.5</sparkle:shortVersionString>
+            <title>1.0.6</title>
+            <pubDate>Wed, 13 May 2026 00:45:40 +0200</pubDate>
+            <sparkle:fullReleaseNotesLink>https://raw.githubusercontent.com/zannato/Nostar-releases/main/notes/Nostar-1.0.6.html</sparkle:fullReleaseNotesLink>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>1.0.6</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.6</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <sparkle:releaseNotesLink>https://raw.githubusercontent.com/zannato/Nostar-releases/main/notes/Nostar-1.0.5.html</sparkle:releaseNotesLink>
-            <enclosure url="https://github.com/zannato/Nostar-releases/releases/download/v1.0.5/Nostar-1.0.5.zip" length="126055064" type="application/octet-stream" sparkle:edSignature="Any+5Vimi/5ujaSRZIO8lp/WiDOMJbRJA9RDVbjHK5VpiA5UyypUBd9CW9AcP0CfXFwpCANYCjY25htK2MxyBQ=="/>
+            <sparkle:releaseNotesLink>https://raw.githubusercontent.com/zannato/Nostar-releases/main/notes/Nostar-1.0.6.html</sparkle:releaseNotesLink>
+            <enclosure url="https://github.com/zannato/Nostar-releases/releases/download/v1.0.6/Nostar-1.0.6.zip" length="126214969" type="application/octet-stream" sparkle:edSignature="0llBDu6QA7HzkBXzmva+OwCeKS9uYYkMdrDdZdJ/eCV2hfU5XvJ/EwsELy1SJMaKaoxMj6ynMVftxR6t9byyAQ=="/>
         </item>
     </channel>
 </rss>

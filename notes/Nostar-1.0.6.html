@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Nostar 1.0.6 — Note di rilascio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #1d1d1f;
+            margin: 24px;
+            max-width: 720px;
+        }
+        h1 { font-size: 20px; margin-bottom: 8px; }
+        h2 { font-size: 15px; margin-top: 24px; }
+        ul { margin: 0 0 16px 20px; padding: 0; }
+        li { margin-bottom: 6px; }
+        code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; background: #f4f4f5; padding: 1px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Nostar 1.0.6</h1>
+    <p>Nuova sezione <strong>"Codici di invito"</strong> nel Project Hub per recuperare i codici Nostar attivi di un progetto cloud, anche dopo aver chiuso il wizard di creazione.</p>
+
+    <h2>Novità</h2>
+    <ul>
+        <li><strong>Recupero codici di invito</strong>: nel Project Hub, sotto la "Dashboard cliente", la nuova sezione <strong>"Codici di invito"</strong> mostra i codici Nostar attivi del progetto (non scaduti, non ancora usati). Da qui puoi <strong>copiare</strong> un codice negli appunti o <strong>condividerlo</strong> via AirDrop, Mail o Messaggi, e <strong>generare un nuovo codice</strong> senza dover ricreare il progetto.</li>
+        <li>Cinque stati gestiti: cloud disattivato, caricamento, errore con retry, lista vuota con CTA "Genera nuovo codice", lista codici con data di creazione.</li>
+    </ul>
+
+    <h2>Note tecniche</h2>
+    <p>Lato server (Cloudflare Worker): nuovo endpoint <code>GET /api/projects/:id/invites</code> autenticato via project token. Restituisce solo codici ancora validi (<code>used_at IS NULL AND (expires_at IS NULL OR expires_at &gt; now())</code>), ordinati per data di creazione decrescente. Rate limit dedicato <code>list_invites: 60/60s</code>.</p>
+    <p>Lato app: <code>CloudGatewayClient.listInvites(projectID:token:)</code> con retry trasparente su errori transitori, nuovo modello <code>CloudInvitePayload</code> e UI <code>NostarProjectHubInvitesSection</code> coerente con i controlli di condivisione codice già presenti nello step Conferma del wizard progetto.</p>
+
+    <p>Per forzare il check di aggiornamento via terminale:</p>
+    <p><code>defaults delete zannato.Nostar SULastCheckTime</code></p>
+</body>
+</html>
