@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Nostar 1.0.5 — Note di rilascio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #1d1d1f;
+            margin: 24px;
+            max-width: 720px;
+        }
+        h1 { font-size: 20px; margin-bottom: 8px; }
+        h2 { font-size: 15px; margin-top: 24px; }
+        ul { margin: 0 0 16px 20px; padding: 0; }
+        li { margin-bottom: 6px; }
+        code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; background: #f4f4f5; padding: 1px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Nostar 1.0.5</h1>
+    <p>Hotfix per il bottone "Rigenera suggerimenti" e per la categorizzazione automatica SigLIP sui progetti cloud appena creati.</p>
+
+    <h2>Fix</h2>
+    <ul>
+        <li>Risolto: il bottone <strong>"Rigenera suggerimenti"</strong> nella tab Vision AI ora <strong>assegna effettivamente la categoria</strong> ai prodotti, oltre a generare i suggerimenti. Prima: i suggerimenti comparivano con confidence alta ma la tabella prodotti restava senza categoria. Ora: stesso comportamento del post-scan automatico.</li>
+        <li>Migliorata la robustezza del sync cloud per cataloghi grandi (lato server): batch D1 ridimensionati per evitare timeout di transazione, e la query di finalize è stata alleggerita per non superare il limite CPU di D1 su cataloghi con migliaia di SKU.</li>
+    </ul>
+
+    <h2>Note tecniche</h2>
+    <p>Sotto il cofano: <code>NostarPSVisionAITab.runRegeneration()</code> ora chiama <code>ProjectProductService.promoteCertainAICategories(...)</code> usando la stessa soglia configurata dallo slider "Soglia confidence", esattamente come il path post-scan in <code>AppState+Scanning.runPostScanCategoryAnalysis</code>. Eliminata un'asimmetria storica fra i due path.</p>
+    <p>Note sui prodotti operativi: per i progetti onboarded con cataloghi molto grandi (>5k SKU), il campo "Note" del prodotto resta vuoto al primo sync. Verrà ripopolato in un rilascio successivo via update chunked dedicato.</p>
+
+    <p>Per forzare il check di aggiornamento via terminale:</p>
+    <p><code>defaults delete zannato.Nostar SULastCheckTime</code></p>
+</body>
+</html>
