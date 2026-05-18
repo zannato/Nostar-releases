@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Nostar 1.0.7 — Note di rilascio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #1d1d1f;
+            margin: 24px;
+            max-width: 720px;
+        }
+        h1 { font-size: 20px; margin-bottom: 8px; }
+        h2 { font-size: 15px; margin-top: 24px; }
+        ul { margin: 0 0 16px 20px; padding: 0; }
+        li { margin-bottom: 6px; }
+        code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; background: #f4f4f5; padding: 1px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Nostar 1.0.7</h1>
+    <p>Catalogo prodotti riprogettato in chiave <strong>lookup-first</strong>, codici invito <strong>permanenti</strong> opzionali, e una serie di miglioramenti di qualità di vita su rinomina file e scan mirato.</p>
+
+    <h2>Novità</h2>
+    <ul>
+        <li><strong>Wizard catalogo riprogettato</strong>: nuovo flusso di import che riconosce header internazionali, gestisce sheet duplicati o cancellati, deduplica varianti su barcode multipli e tollera totali/subtotali nei file Excel reali. Anteprima live prima della conferma.</li>
+        <li><strong>Codici invito permanenti</strong>: oltre al classico TTL 24h/7g, ora puoi generare codici senza scadenza, revocabili manualmente dal Project Hub. Utile per progetti long-running con onboarding continuo.</li>
+        <li><strong>Rinomina file inline</strong>: doppio clic sul nome file nella tabella per rinominare al volo, con preview percorso, validazione caratteri Finder e rollback automatico in caso di conflitto.</li>
+        <li><strong>Scope attivo dello scan</strong>: nuovo modello di selezione gerarchica che limita la pipeline a sottocartelle o categorie scelte, senza re-scan globale. Badge "shots" nella tabella mostra il numero di scatti completati per riga.</li>
+        <li><strong>Vision AI configurabile</strong>: nel pannello Vision AI delle impostazioni progetto puoi regolare le soglie di promozione SigLIP (quando una predizione diventa "primary", quando viene rigettata). Reset al default sempre disponibile.</li>
+    </ul>
+
+    <h2>Note tecniche</h2>
+    <p>Lato server (Cloudflare Worker): migration <code>0016_permanent_project_invite_codes</code> rende opzionale <code>expires_at</code> sulla tabella inviti; migration <code>0017_operational_category_source_compat</code> abilita il nuovo discriminator di sorgente per le categorie operative. Nuovi endpoint <code>POST /invites</code> con flag <code>permanent</code> e <code>DELETE /invites/:code</code> per revoca.</p>
+    <p>Lato app: <code>ProjectCatalogImportService</code> riscritto in stile lookup-first con suite di 15 fixture Excel reali coperte da test deterministici (<code>CatalogImportNormalizerTests</code>, <code>ExcelServiceSheetResolutionTests</code>, <code>CategoryTemplateDatabaseTests</code>). Pipeline scan isolata in <code>ScanFileEnumerator</code> + <code>ScanResultAssembler</code> con coverage del 90%+. <code>InlineFileRenameRequest</code> incapsula la transazione di rinomina con rollback su conflitto.</p>
+
+    <p>Per forzare il check di aggiornamento via terminale:</p>
+    <p><code>defaults delete zannato.Nostar SULastCheckTime</code></p>
+</body>
+</html>
