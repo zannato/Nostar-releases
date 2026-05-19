@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Nostar 1.0.8 — Note di rilascio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #1d1d1f;
+            margin: 24px;
+            max-width: 720px;
+        }
+        h1 { font-size: 20px; margin-bottom: 8px; }
+        h2 { font-size: 15px; margin-top: 24px; }
+        ul { margin: 0 0 16px 20px; padding: 0; }
+        li { margin-bottom: 6px; }
+        code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; background: #f4f4f5; padding: 1px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Nostar 1.0.8</h1>
+    <p>Sincronizzazione multi-Mac delle <strong>impostazioni di progetto</strong> tramite cloud, dashboard cliente con preview ordinate per vista del wizard, e default di ordinamento tabella allineato al flusso di scatto reale (ultimi prodotti aggiunti per primi).</p>
+
+    <h2>Novità</h2>
+    <ul>
+        <li><strong>Session sharing cloud delle impostazioni progetto</strong>: il bundle progetto sul cloud ora trasporta l'intero <code>ProjectSettings</code> (background, crop, color tag, flag QC, naming metadata). Un secondo Mac che apre lo stesso progetto eredita esattamente i parametri configurati dal primo, senza dover riconfigurare il QC manualmente.</li>
+        <li><strong>Dashboard cliente: preview ordinate per vista</strong>: nella view prodotto del dashboard web le miniature seguono ora la sequenza definita nel wizard (<code>view_requirements.sort_order</code>) invece di un ordine implicito per data di upload. La caption mostra <strong>SKU · Nome vista</strong> (es. "ABC-123 · Fronte") al posto del solo suffix tecnico.</li>
+        <li><strong>Tabella prodotti: ordinamento per data di creazione</strong>: il default di ordinamento è ora <em>Creazione · più recenti prima</em>, allineato al workflow di shooting reale dove i prodotti appena fotografati devono essere immediatamente visibili in cima. Il menu di sort nel topbar è stato riorganizzato; ogni criterio applica il proprio ordinamento di default più sensato (es. data → decrescente, nome → crescente).</li>
+        <li><strong>Wizard QC: snapshot dinamico al posto dei default</strong>: quando crei un nuovo progetto, le impostazioni QC catturate dallo Step 4 riflettono lo stato corrente dei pannelli Background/Crop/Tag Colore, non più valori hardcoded. Questo elimina il caso in cui un progetto creato dopo aver personalizzato i settings globali partiva comunque dai default.</li>
+        <li><strong>Catalog import lookup-first esteso</strong>: estensione del flusso lookup-first introdotto in 1.0.7 con copertura aggiuntiva di sorgenti categorie e nuove fixture di test deterministici sul roundtrip completo.</li>
+    </ul>
+
+    <h2>Note tecniche</h2>
+    <p>Lato server (Cloudflare Worker): nuova migration <code>0018_project_settings_json</code> aggiunge la colonna <code>settings_json</code> a <code>project_settings</code>, gestita con UPSERT last-write-wins via <code>COALESCE</code>. L'endpoint <code>/api/sync/project-bundle</code> accetta e persiste <code>body.project.settings</code> come blob JSON opaco; backward-compatible con client pre-0018 (campo omesso → no-op).</p>
+    <p>Lato app: <code>ProjectConfigDraft.toProjectSettings()</code> ora invoca <code>ProjectSettings.fromCurrent()</code> sui singleton runtime invece di costruire <code>BackgroundSnapshot.defaults</code>/<code>FileCropSnapshot.defaults</code> hardcoded. Per progetti cloud, <code>ProjectConfigDraft.applyCloudBundle()</code> popola i flag QC dal bundle remoto se presente. <code>CloudProjectBundlePayload</code>/<code>CloudProjectBundleResponse</code> hanno il nuovo campo opzionale <code>settings: ProjectSettings?</code>, codifica round-trip coperta da <code>CloudPayloadCodingTests</code> + <code>CategoryTemplateDatabaseTests</code> (3 nuovi test, di cui 2 per backward compat con bundle senza <code>settings</code>).</p>
+    <p>Dashboard web (<code>dashboard/src/routes/d/[linkId]/+page.svelte</code>): <code>previewsByProduct</code> ora effettua solo grouping per <code>product_id</code> senza pre-sort; l'ordinamento canonico è centralizzato in <code>previewSlotsFor</code> via la nuova helper <code>viewRequirementsFor(product)</code> che include sia viste required che opzionali, ordinate per <code>sort_order</code>. La caption del <code>figcaption</code> mostra ora <code>{productDetail.sku} · {slot.viewLabel}</code>.</p>
+
+    <p>Per forzare il check di aggiornamento via terminale:</p>
+    <p><code>defaults delete zannato.Nostar SULastCheckTime</code></p>
+</body>
+</html>
