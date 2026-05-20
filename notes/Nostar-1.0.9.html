@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Nostar 1.0.9 — Note di rilascio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #1d1d1f;
+            margin: 24px;
+            max-width: 720px;
+        }
+        h1 { font-size: 20px; margin-bottom: 8px; }
+        h2 { font-size: 15px; margin-top: 24px; }
+        ul { margin: 0 0 16px 20px; padding: 0; }
+        li { margin-bottom: 6px; }
+        code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; background: #f4f4f5; padding: 1px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Nostar 1.0.9</h1>
+    <p>Rilascio di correzioni che risolve tre problemi emersi con il session sharing cloud della 1.0.8: la richiesta ripetuta del portachiavi dopo gli aggiornamenti, l'export verso cartelle diverse da quella del progetto, e i codici di invito che non funzionavano sugli altri Mac.</p>
+
+    <h2>Correzioni</h2>
+    <ul>
+        <li><strong>Niente più richieste ripetute del portachiavi</strong>: dopo un aggiornamento, l'app non chiede più all'infinito il permesso di accedere ai dati cloud salvati nel portachiavi. Nostar ora usa il keychain con protezione dati di sistema, che non mostra il prompt di autorizzazione a ogni avvio.</li>
+        <li><strong>Export in qualsiasi cartella</strong>: ora puoi esportare le immagini (e il CSV) in una cartella a tua scelta, anche fuori da quella del progetto, senza l'errore "non hai i permessi". Nostar memorizza l'autorizzazione alla cartella scelta e la usa per tutta la durata dell'export.</li>
+        <li><strong>Codici di invito funzionanti tra Mac</strong>: il codice per far entrare un altro Mac in un progetto cloud ora è quello corretto, emesso dal server al momento della pubblicazione. Lo trovi in <strong>Project Hub → Codici di invito</strong>. Il codice si può digitare anche in minuscolo: viene normalizzato automaticamente.</li>
+    </ul>
+
+    <h2>Note tecniche</h2>
+    <p><strong>Portachiavi</strong>: tutte le operazioni <code>SecItem</code> (save/read/update/delete) ora impostano <code>kSecUseDataProtectionKeychain</code>. Su app sandboxed questo evita il prompt ACL del keychain legacy quando la firma del binario cambia tra un aggiornamento e l'altro. Nessuna migrazione: i token cloud eventualmente presenti vengono semplicemente ri-richiesti al primo riavvio (re-import del progetto).</p>
+    <p><strong>Export</strong>: la cartella di destinazione personalizzata viene salvata come security-scoped bookmark al momento della scelta e riaperta con <code>start/stopAccessingSecurityScopedResource</code> per tutta la durata del job. Stessa correzione applicata all'export CSV.</p>
+    <p><strong>Codice di invito</strong>: il wizard non genera più un codice client-side (che non veniva mai registrato lato server); al momento della pubblicazione l'app chiama <code>createInviteCode</code> sul gateway, così il codice mostrato e quello accettato dal join coincidono. L'input del join viene normalizzato in maiuscolo per il match esatto lato server.</p>
+
+    <p>Per forzare il check di aggiornamento via terminale:</p>
+    <p><code>defaults delete zannato.Nostar SULastCheckTime</code></p>
+</body>
+</html>
