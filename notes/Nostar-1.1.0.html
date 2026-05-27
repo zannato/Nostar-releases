@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Nostar 1.1.0 — Note di rilascio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #1d1d1f;
+            margin: 24px;
+            max-width: 720px;
+        }
+        h1 { font-size: 20px; margin-bottom: 8px; }
+        h2 { font-size: 15px; margin-top: 24px; }
+        ul { margin: 0 0 16px 20px; padding: 0; }
+        li { margin-bottom: 6px; }
+        code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; background: #f4f4f5; padding: 1px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Nostar 1.1.0</h1>
+    <p>Rilascio foundation Q2: nuovo flusso project-first, scan più affidabile, export più controllato, profili cliente portabili e pulizia del vecchio layer LLM. SigLIP/CoreML resta il motore locale per la classificazione categoria.</p>
+
+    <h2>Novità principali</h2>
+    <ul>
+        <li><strong>Flusso project-first</strong>: l'app lavora attorno ai progetti. Il cambio progetto mantiene uno stato di caricamento dedicato e non mostra più stati vuoti fuorvianti durante lo switch.</li>
+        <li><strong>Scan più robusto</strong>: la rilevazione cambi file usa data modifica e dimensione, preserva meglio cache e tombstone, e invalida i QC quando un file viene realmente sostituito.</li>
+        <li><strong>Export aggiornato</strong>: gestione più sicura delle destinazioni, preset portabili, composer visuale della formula nome file e preflight più esplicito.</li>
+        <li><strong>Profili cliente portabili</strong>: un progetto può esportare/importare il profilo cliente operativo, con QC, naming, viste e categoria Vision, senza portarsi dietro cataloghi SKU o file progetto.</li>
+        <li><strong>Cloud/session sharing</strong>: il bundle cloud include impostazioni progetto e riferimenti al profilo cliente, così un Mac che entra nel progetto può ricostruire lo stato necessario.</li>
+    </ul>
+
+    <h2>Qualità e AI locale</h2>
+    <ul>
+        <li><strong>SigLIP/CoreML</strong>: categoria AI trattata come suggerimento operativo senza warning di incertezza; il pool termini è più deterministico e allineato al modello CoreML.</li>
+        <li><strong>Inspector</strong>: aggiunto overlay debug della maschera di segmentazione per analizzare il comportamento del background check.</li>
+        <li><strong>Ricerca prodotti</strong>: migliorato il match su suffissi reali, alias categoria e nomi file.</li>
+    </ul>
+
+    <h2>Pulizia tecnica</h2>
+    <ul>
+        <li>Rimosso il vecchio layer LLM/RAG, inclusi servizi, viste diagnostiche, schema vector store e superfici debug legacy.</li>
+        <li>Il PDF linee guida resta asset cliente: non viene più usato per estrazione LLM.</li>
+        <li>Le impostazioni operative del progetto vengono lette dal progetto, non da default globali o template cliente a runtime.</li>
+    </ul>
+
+    <p>Per forzare il check di aggiornamento via terminale:</p>
+    <p><code>defaults delete zannato.Nostar SULastCheckTime</code></p>
+</body>
+</html>
