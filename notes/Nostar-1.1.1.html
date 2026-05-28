@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Nostar 1.1.1 - Note di rilascio</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --accent: #7c3aed;
+            --ink: #1d1d1f;
+            --muted: #6b7280;
+            --line: #e5e7eb;
+            --soft: #f7f4ff;
+        }
+
+        body {
+            margin: 22px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.55;
+            color: var(--ink);
+            background: #ffffff;
+        }
+
+        h1 {
+            margin: 0 0 6px;
+            font-size: 22px;
+            letter-spacing: 0;
+        }
+
+        .lead {
+            margin: 0 0 18px;
+            color: var(--muted);
+        }
+
+        .badge {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            color: var(--accent);
+            background: var(--soft);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        h2 {
+            margin: 20px 0 8px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+            font-size: 15px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 19px;
+        }
+
+        li {
+            margin: 0 0 7px;
+        }
+
+        strong {
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="badge">Aggiornamento consigliato</div>
+    <h1>Nostar 1.1.1</h1>
+    <p class="lead">Un rilascio di stabilizzazione per Project Hub, pacchetti progetto e aggiornamenti automatici.</p>
+
+    <h2>Novita principali</h2>
+    <ul>
+        <li><strong>Progetti portabili</strong>: puoi esportare e importare pacchetti <strong>.nostarproject</strong> con dati progetto, catalogo e configurazione locale. Le foto restano fuori dal pacchetto.</li>
+        <li><strong>Apertura da Finder</strong>: doppio clic su un file <strong>.nostarproject</strong> e Nostar importa il progetto, apre Project Hub e lo seleziona automaticamente.</li>
+        <li><strong>Collega codice Nostar</strong>: un progetto locale o importato puo essere associato a un codice cloud gia esistente senza fare pull automatici o sovrascrivere le impostazioni del progetto.</li>
+    </ul>
+
+    <h2>Miglioramenti</h2>
+    <ul>
+        <li><strong>Note aggiornamento leggibili</strong>: la finestra Sparkle ora mostra queste note come pagina formattata, non piu come sorgente HTML.</li>
+        <li><strong>Codici invito piu tolleranti</strong>: Nostar normalizza i codici copiati con spazi o senza trattino prima del collegamento.</li>
+        <li><strong>Watcher cloud piu pulito</strong>: quando disabiliti il cloud sul progetto attivo, il watcher viene spento correttamente.</li>
+    </ul>
+
+    <h2>Qualita</h2>
+    <ul>
+        <li>Suite completa verificata prima del rilascio.</li>
+        <li>Flusso Project Hub coperto da test dedicati per import/export, credenziali locali e collegamento codice Nostar.</li>
+    </ul>
+</body>
+</html>
